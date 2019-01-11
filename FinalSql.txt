@@ -1,0 +1,1003 @@
+ create table Login_credentials(user_name varchar2(20),
+  2                        password varchar2(20),
+  3                        role_code Number(5), PRIMARY KEY(user_name));
+
+Table created.
+
+SQL> insert into Login_credentials values('nithish','nithish123',3);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table policy_Questions(Pol_Ques_Id Number(5) primary key,
+  2    Pol_Ques_Seq number(3),
+  3    Bus_Seg_id varchar2(10),
+  4    Pol_Ques_Desc varchar2(100),
+  5    Pol_Ques_Ans1 varchar2(50),
+  6    Pol_Ques_Ans1_weightage Number(10),
+  7    Pol_Ques_Ans2 varchar2(50),
+  8    Pol_Ques_Ans2_weightage Number(10),
+  9    Pol_Ques_Ans3 varchar2(50),
+ 10    Pol_Ques_Ans3_weightage Number(10),
+ 11     Pol_Ques_Ans4 varchar2(50),
+ 12     Pol_Ques_Ans4_weightage Number(10),constraint bus_id foreign key(Bus_Seg_id) references Business_Segment(Bus_Seg_id));
+   Pol_Ques_Ans4_weightage Number(10),constraint bus_id foreign key(Bus_Seg_id) references Business_Segment(Bus_Seg_id))
+                                                                                           *
+ERROR at line 12:
+ORA-00942: table or view does not exist
+
+
+SQL> create table Business_Segment(Bus_Seg_id varchar2(10) primary key,
+  2    Bus_Seg_Name varchar2(10));
+
+Table created.
+
+SQL> create table policy_Questions(Pol_Ques_Id Number(5) primary key,
+  2    Pol_Ques_Seq number(3),
+  3    Bus_Seg_id varchar2(10),
+  4    Pol_Ques_Desc varchar2(100),
+  5    Pol_Ques_Ans1 varchar2(50),
+  6      Pol_Ques_Ans1_weightage Number(10),
+  7      Pol_Ques_Ans2 varchar2(50),
+  8      Pol_Ques_Ans2_weightage Number(10),
+  9      Pol_Ques_Ans3 varchar2(50),
+ 10     Pol_Ques_Ans3_weightage Number(10),
+ 11     Pol_Ques_Ans4 varchar2(50),
+ 12     Pol_Ques_Ans4_weightage Number(10),constraint bus_seg_id foreign key(Bus_Seg_id) references Business_Segment(Bus_Seg_id));
+
+Table created.
+
+SQL> alter table policy_questions drop column pol_ques_seq;
+
+Table altered.
+
+SQL> insert into business_segment values(1001,'Vehicle');
+
+1 row created.
+
+SQL> insert into policy_questions values(1,1001,'Vehicle Type','2 wheeler',100,'3 wheeler',200,'4 wheeler',400,'multi axle',700);
+
+1 row created.
+
+SQL>  insert into policy_questions values(2,1001,'Vehicle Condition','new',0,'Minor Damage',50,'Major Damage',200,'Extreme Damage',400);
+
+1 row created.
+
+SQL> insert into policy_questions values(3,1001,'Daily Travelling Distance','Less than 5 kms',20,'Less than 15 kms',50,'More than 15 and Less than 25 kms',100,'More than 25 kms',700);
+
+1 row created.
+
+SQL> insert into policy_questions values(4,1001,'Engine CC','Less than 100',20,'Less than 1000',100,'Less than 2000',200,'Less than 5000',400);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from login_credentials;
+
+USER_NAME            PASSWORD              ROLE_CODE
+-------------------- -------------------- ----------
+nithish              nithish123                    3
+ramana               ramana123                     2
+
+SQL> insert into login_credentials values('charan','charan123',1);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc accounts;
+ERROR:
+ORA-04043: object accounts does not exist
+
+
+SQL> create table Accounts(Account_number Number(10) Primary Key,
+  2                            Insured_Name varchar2(30),
+  3                            Insured_street varchar2(40),
+  4                          Insured_city varchar2(15),
+  5                           Insured_state  varchar2(40),
+  6                   Insured_Zip  Number(5),
+  7            Business_Segment varchar2(20),
+  8       User_name varchar2(20) references Login_credentials(user_name),
+  9       agent_name varchar2(20));
+
+Table created.
+
+SQL> create table Policy(Policy_Number number(10) Primary key,
+  2                           Policy_Premium Number(10),
+  3                            Account_Number Number(10) references Accounts(Account_number));
+
+Table created.
+
+SQL> select * from business_segment;
+
+BUS_SEG_ID BUS_SEG_NA
+---------- ----------
+1001       Vehicle
+
+SQL> create sequence policy_id_seq start with 1000000;
+
+Sequence created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from Accounts;
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      60093194 djfkdnf
+fvfdv                                    fvfdvf
+fvfvfdv                                        54215 Shop
+
+
+
+SQL> select * from Login_credentials;
+
+USER_NAME            PASSWORD              ROLE_CODE
+-------------------- -------------------- ----------
+nithish              nithish123                    3
+ramana               ramana123                     2
+charan               charan123                     1
+
+SQL> select * from Accounts;
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      60093194 djfkdnf
+fvfdv                                    fvfdvf
+fvfvfdv                                        54215 Shop
+
+
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      82884881 dfd
+fdvfdv                                   fvfbv
+vffbv                                          12547
+charan
+
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      40221417 scdf
+bgb                                      gbv
+bbg                                            12548
+charan
+
+
+SQL> delete from table Accounts where account_number=40221417;
+delete from table Accounts where account_number=40221417
+            *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete from Accounts where account_number=40221417;
+
+1 row deleted.
+
+SQL> delete from Accounts where account_number=82884881;
+delete from Accounts where account_number=82884881
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SYSTEM.SYS_C007178) violated - child record
+found
+
+
+SQL> select * from business_segment;
+
+BUS_SEG_ID BUS_SEG_NA
+---------- ----------
+1001       Vehicle
+
+SQL> select * from Accounts;
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      60093194 djfkdnf
+fvfdv                                    fvfdvf
+fvfvfdv                                        54215 Shop
+
+
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      82884881 dfd
+fdvfdv                                   fvfbv
+vffbv                                          12547
+charan
+
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      83653908 erfrfr
+gfgv                                     fvfv
+fvfg                                           12563
+charan
+
+
+SQL> delete from Accounts where account_number=83653908;
+
+1 row deleted.
+
+SQL> delete from Accounts where account_number=82884881;
+delete from Accounts where account_number=82884881
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SYSTEM.SYS_C007178) violated - child record
+found
+
+
+SQL> delete from Accounts where account_number=60093194;
+
+1 row deleted.
+
+SQL> select * from accounts;
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      82884881 dfd
+fdvfdv                                   fvfbv
+vffbv                                          12547
+charan
+
+
+SQL> delete from Accounts where account_number=82884881;
+delete from Accounts where account_number=82884881
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SYSTEM.SYS_C007178) violated - child record
+found
+
+
+SQL> select * from policy;
+
+POLICY_NUMBER POLICY_PREMIUM ACCOUNT_NUMBER
+------------- -------------- --------------
+            0            450       82884881
+
+SQL> delete from policy where account_number=82884881;
+
+1 row deleted.
+
+SQL> delete from Accounts where account_number=82884881;
+
+1 row deleted.
+
+SQL> select * from accounts ;
+
+no rows selected
+
+SQL> select * from accounts ;
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+       8261121 svcdsv
+vcvdf                                    cvvfsvf
+fvfvvc                                         12547
+charan
+
+
+ACCOUNT_NUMBER INSURED_NAME
+-------------- ------------------------------
+INSURED_STREET                           INSURED_CITY
+---------------------------------------- ---------------
+INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT
+---------------------------------------- ----------- --------------------
+USER_NAME            AGENT_NAME
+-------------------- --------------------
+      53470986 dffvfv
+vfvfb                                    fvfbfd
+vfdvd                                          12154
+charan
+
+
+SQL> select * from policy;
+
+no rows selected
+
+SQL> select * from policy;
+
+no rows selected
+
+SQL> select * from policy_questions;
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+          1 1001
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Vehicle Type
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+2 wheeler                                                              100
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+3 wheeler                                                              200
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+4 wheeler                                                              400
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+multi axle                                                             700
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+          2 1001
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Vehicle Condition
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+new                                                                      0
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Minor Damage                                                            50
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Major Damage                                                           200
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Extreme Damage                                                         400
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+          3 1001
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Daily Travelling Distance
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 5 kms                                                         20
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 15 kms                                                        50
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+More than 15 and Less than 25 kms                                      100
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+More than 25 kms                                                       700
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+          4 1001
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Engine CC
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 100                                                           20
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 1000                                                         100
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 2000                                                         200
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+Less than 5000                                                         400
+
+POL_QUES_ID BUS_SEG_ID
+----------- ----------
+POL_QUES_DESC
+--------------------------------------------------------------------------------
+POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS2                                      POL_QUES_ANS2_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE
+-------------------------------------------------- -----------------------
+POL_QUES_ANS4                                      POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- -----------------------
+
+
+SQL> set linesize 300;
+SQL> select * from policy_questions;
+
+POL_QUES_ID BUS_SEG_ID POL_QUES_DESC                                                                                POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE POL_QUES_ANS2
+                          POL_QUES_ANS2_WEIGHTAGE
+----------- ---------- ---------------------------------------------------------------------------------------------------- -------------------------------------------------- ----------------------- -------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE POL_QUES_ANS4                              POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- ----------------------- -------------------------------------------------- -----------------------
+          1 1001       Vehicle Type                                                                                 2 wheeler                                                              100 3 wheeler
+                                              200
+4 wheeler                                                              400 multi axle                                                     700
+
+          2 1001       Vehicle Condition                                                                            new                                                                      0 Minor Damage
+                                               50
+Major Damage                                                           200 Extreme Damage                                                 400
+
+          3 1001       Daily Travelling Distance                                                                    Less than 5 kms                                                         20 Less than 15 kms
+                                               50
+More than 15 and Less than 25 kms                                      100 More than 25 kms                                               700
+
+
+POL_QUES_ID BUS_SEG_ID POL_QUES_DESC                                                                                POL_QUES_ANS1                                      POL_QUES_ANS1_WEIGHTAGE POL_QUES_ANS2
+                          POL_QUES_ANS2_WEIGHTAGE
+----------- ---------- ---------------------------------------------------------------------------------------------------- -------------------------------------------------- ----------------------- -------------------------------------------------- -----------------------
+POL_QUES_ANS3                                      POL_QUES_ANS3_WEIGHTAGE POL_QUES_ANS4                              POL_QUES_ANS4_WEIGHTAGE
+-------------------------------------------------- ----------------------- -------------------------------------------------- -----------------------
+          4 1001       Engine CC                                                                                    Less than 100                                                           20 Less than 1000
+                                              100
+Less than 2000                                                         200 Less than 5000                                                 400
+
+
+SQL> insert into policy_questions values(5,1002,'Restaurant Type','With Dining',1000,'Dining with Bar',1500,'Dining with Bar and Entertainment',1700,'Dining with Bar,Entertainment and theme based',2000);
+insert into policy_questions values(5,1002,'Restaurant Type','With Dining',1000,'Dining with Bar',1500,'Dining with Bar and Entertainment',1700,'Dining with Bar,Entertainment and theme based',2000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.BUS_SEG_ID) violated - parent key not found
+
+
+SQL> desc business_segment;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ BUS_SEG_ID                                                                                                                                                            NOT NULL VARCHAR2(10)
+ BUS_SEG_NAME                                                                                                                                                                   VARCHAR2(10)
+
+SQL> insert into business_segment values('1002','Restaurant');
+
+1 row created.
+
+SQL> insert into policy_questions values(5,1002,'Restaurant Type','With Dining',1000,'Dining with Bar',1500,'Dining with Bar and Entertainment',1700,'Dining with Bar,Entertainment and theme based',2000);
+
+1 row created.
+
+SQL> delete from policy_questions where pol_ques_id=5;
+
+1 row deleted.
+
+SQL> insert into policy_questions values(5,1002,'Restaurant Type','With Dining',1000,'Dining with Bar',1500,'Dining with Bar and Entertainment',1700,'Dining with Bar,Entertainment and theme based',2000);
+
+1 row created.
+
+SQL> insert into policy_questions values(5,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000);
+insert into policy_questions values(5,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007173) violated
+
+
+SQL> insert into policy_questions values(6,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000);
+
+1 row created.
+
+SQL> insert into policy_questions values(7,1002,'No.of Cylinders in kitchen','upto 5','200,'from 6 to 15',400,'from 15 to 20',600,'more than 20',1000);
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into policy_questions values(7,1002,'No.of Cylinders in kitchen','upto 5',200,'from 6 to 15',400,'from 15 to 20',600,'more than 20',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(8,1002,'Number of sprinklers','upto 20',200,'from 21 to 40',400,'from 41 to 60',600,'more than 60',1000);
+
+1 row created.
+
+SQL> insert into business_segment values('1003','Apartment');
+
+1 row created.
+
+SQL> insert into policy_questions values(9,1003,'Apartment Sq.Ft','upto 1500 Sq.Ft',200,'from 1500 to 5000',400,'from 5000 to 10000',600,'more than 10000',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(10,1003,'Build Year','before 2000',200,'from 2000 to 2010',400,'from 2010 to 2015',600,'after 2015',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(11,1003,'Number Of Floors','less than 10',200,'from 10 to 20',400,'from 20 to 40',600,'more than 40',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(12,1003,'Number of Sprinklers','upto 20',200,'from 20 to 30',400,'from 30 to 50',600,'more than 50',1000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select* from accounts;
+
+ACCOUNT_NUMBER INSURED_NAME                   INSURED_STREET                           INSURED_CITY    INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT     USER_NAME            AGENT_NAME
+-------------- ------------------------------ ---------------------------------------- --------------- ---------------------------------------- ----------- -------------------- -------------------- --------------------
+       8261121 svcdsv                         vcvdf                                    cvvfsvf         fvfvvc                                         12547                      charan
+      53470986 dffvfv                         vfvfb                                    fvfbfd          vfdvd                                          12154                      charan
+      43101337 ffff                           dfbfd                                    dbbg            gbgbg                                          12547                      charan
+      77054082 dgfgfg                         fgbg                                     gg              gg                                             12356                      charan
+      25262492 ggfbfg                         fgbgfbg                                  gbgbg           bgbgb                                          12569                      charan
+      79337601 dcdvf                          fvfvbf                                   fvfvf           vfvfv                                          45875                      charan
+      69454564 dinesh                         sdsd                                     fdfdf           dfd                                            45874                      charan
+      15886895 cdcdf                          vfvf                                     ffbf            fbf                                            54874                      charan
+      31790940 fdsfs                          fdfsvd                                   fdf             ff                                             12458                      charan
+      65594065 dgfdbcb                        ffdbfbf                                  bbdbf           bgbgbg                                         12454                      charan
+      33471029 cdff                           ffbfv                                    vvbf            bb                                             12547                      charan
+
+ACCOUNT_NUMBER INSURED_NAME                   INSURED_STREET                           INSURED_CITY    INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT     USER_NAME            AGENT_NAME
+-------------- ------------------------------ ---------------------------------------- --------------- ---------------------------------------- ----------- -------------------- -------------------- --------------------
+      15846908 fdgfd                          fvfv                                     ffvf            fvfvf                                          12545                      charan
+      88635705 gfgvgf                         vfdv                                     fvfvf           fvfv                                           54785                      charan
+
+13 rows selected.
+
+SQL> select * from policy;
+
+no rows selected
+
+SQL> desc policy;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ POLICY_NUMBER                                                                                                                                                         NOT NULL NUMBER(10)
+ POLICY_PREMIUM                                                                                                                                                                 NUMBER(10)
+ ACCOUNT_NUMBER                                                                                                                                                                 NUMBER(10)
+
+SQL> desc policy;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ POLICY_NUMBER                                                                                                                                                         NOT NULL NUMBER(10)
+ POLICY_PREMIUM                                                                                                                                                                 NUMBER(10)
+ ACCOUNT_NUMBER                                                                                                                                                                 NUMBER(10)
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select* from policy;
+
+POLICY_NUMBER POLICY_PREMIUM ACCOUNT_NUMBER
+------------- -------------- --------------
+      1000000           3300       93295613
+
+SQL> desc accounts;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ ACCOUNT_NUMBER                                                                                                                                                        NOT NULL NUMBER(10)
+ INSURED_NAME                                                                                                                                                                   VARCHAR2(30)
+ INSURED_STREET                                                                                                                                                                 VARCHAR2(40)
+ INSURED_CITY                                                                                                                                                                   VARCHAR2(15)
+ INSURED_STATE                                                                                                                                                                  VARCHAR2(40)
+ INSURED_ZIP                                                                                                                                                                    NUMBER(5)
+ BUSINESS_SEGMENT                                                                                                                                                               VARCHAR2(20)
+ USER_NAME                                                                                                                                                                      VARCHAR2(20)
+ AGENT_NAME                                                                                                                                                                     VARCHAR2(20)
+
+SQL> select * from policy;
+
+POLICY_NUMBER POLICY_PREMIUM ACCOUNT_NUMBER
+------------- -------------- --------------
+      1000000           3300       93295613
+
+SQL> select * from accounts;
+
+ACCOUNT_NUMBER INSURED_NAME                   INSURED_STREET                           INSURED_CITY    INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT     USER_NAME            AGENT_NAME
+-------------- ------------------------------ ---------------------------------------- --------------- ---------------------------------------- ----------- -------------------- -------------------- --------------------
+      93295613 hfvhdv                         vhjbvjv                                  bvjfv           hbscjd                                         12548                      charan
+       8261121 svcdsv                         vcvdf                                    cvvfsvf         fvfvvc                                         12547                      charan
+      53470986 dffvfv                         vfvfb                                    fvfbfd          vfdvd                                          12154                      charan
+      43101337 ffff                           dfbfd                                    dbbg            gbgbg                                          12547                      charan
+      77054082 dgfgfg                         fgbg                                     gg              gg                                             12356                      charan
+      25262492 ggfbfg                         fgbgfbg                                  gbgbg           bgbgb                                          12569                      charan
+      79337601 dcdvf                          fvfvbf                                   fvfvf           vfvfv                                          45875                      charan
+      69454564 dinesh                         sdsd                                     fdfdf           dfd                                            45874                      charan
+      15886895 cdcdf                          vfvf                                     ffbf            fbf                                            54874                      charan
+      31790940 fdsfs                          fdfsvd                                   fdf             ff                                             12458                      charan
+      65594065 dgfdbcb                        ffdbfbf                                  bbdbf           bgbgbg                                         12454                      charan
+
+ACCOUNT_NUMBER INSURED_NAME                   INSURED_STREET                           INSURED_CITY    INSURED_STATE                            INSURED_ZIP BUSINESS_SEGMENT     USER_NAME            AGENT_NAME
+-------------- ------------------------------ ---------------------------------------- --------------- ---------------------------------------- ----------- -------------------- -------------------- --------------------
+      33471029 cdff                           ffbfv                                    vvbf            bb                                             12547                      charan
+      15846908 fdgfd                          fvfv                                     ffvf            fvfvf                                          12545                      charan
+      88635705 gfgvgf                         vfdv                                     fvfvf           fvfv                                           54785                      charan
+
+14 rows selected.
+
+SQL> desc policy;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ POLICY_NUMBER                                                                                                                                                         NOT NULL NUMBER(10)
+ POLICY_PREMIUM                                                                                                                                                                 NUMBER(10)
+ ACCOUNT_NUMBER                                                                                                                                                                 NUMBER(10)
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from login_credentials;
+
+USER_NAME            PASSWORD              ROLE_CODE
+-------------------- -------------------- ----------
+nithish              nithish123                    3
+ramana               ramana123                     2
+charan               charan123                     1
+
+SQL> select * from policy;
+
+POLICY_NUMBER POLICY_PREMIUM ACCOUNT_NUMBER
+------------- -------------- --------------
+      1000000           3300       93295613
+      1000001              0       72924224
+
+SQL> desc login_credentials;
+ Name                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ USER_NAME                                                                                                                                                             NOT NULL VARCHAR2(20)
+ PASSWORD                                                                                                                                                                       VARCHAR2(20)
+ ROLE_CODE                                                                                                                                                                      NUMBER(5)
+
+SQL> select * from login_credentials;
+
+USER_NAME            PASSWORD              ROLE_CODE
+-------------------- -------------------- ----------
+nithish              nithish123                    3
+ramana               ramana123                     2
+charan               charan123                     1
+rajub                rajub123                      1
+gandu                gandu123                      1

@@ -1,0 +1,47 @@
+ insert into policy_questions values(5,1002,'Restaurant Type','With Dining',1000,'Dining with Bar',1500,'Dining with Bar and Entertainment',1700,'Dining with Bar,Entertainment and theme based',2000);
+
+1 row created.
+
+SQL> insert into policy_questions values(5,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000);
+insert into policy_questions values(5,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007173) violated
+
+
+SQL> insert into policy_questions values(6,1002,'Restaurant Sq.ft','less than 1500',200,'from 1500 to 5000',1500,'from 2000 to 5000',1700,'more than 5000',2000);
+
+1 row created.
+
+SQL> insert into policy_questions values(7,1002,'No.of Cylinders in kitchen','upto 5','200,'from 6 to 15',400,'from 15 to 20',600,'more than 20',1000);
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into policy_questions values(7,1002,'No.of Cylinders in kitchen','upto 5',200,'from 6 to 15',400,'from 15 to 20',600,'more than 20',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(8,1002,'Number of sprinklers','upto 20',200,'from 21 to 40',400,'from 41 to 60',600,'more than 60',1000);
+
+1 row created.
+
+SQL> insert into business_segment values('1003','Apartment');
+
+1 row created.
+
+SQL> insert into policy_questions values(9,1003,'Apartment Sq.Ft','upto 1500 Sq.Ft',200,'from 1500 to 5000',400,'from 5000 to 10000',600,'more than 10000',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(10,1003,'Build Year','before 2000',200,'from 2000 to 2010',400,'from 2010 to 2015',600,'after 2015',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(11,1003,'Number Of Floors','less than 10',200,'from 10 to 20',400,'from 20 to 40',600,'more than 40',1000);
+
+1 row created.
+
+SQL> insert into policy_questions values(12,1003,'Number of Sprinklers','upto 20',200,'from 20 to 30',400,'from 30 to 50',600,'more than 50',1000);
+
+1 row created.
